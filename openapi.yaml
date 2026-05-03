@@ -1,0 +1,77 @@
+openapi: 3.0.0
+info:
+  title: CRUD E-Commerce API
+  description: API Manajemen Produk E-commerce (Non-Database)
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000/api
+paths:
+  /products:
+    get:
+      summary: Mendapatkan semua produk
+      responses:
+        '200':
+          description: Berhasil mengambil data
+    post:
+      summary: Menambah produk baru
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id: { type: integer }
+                name: { type: string }
+                price: { type: number }
+                stock: { type: integer }
+      responses:
+        '201':
+          description: Produk berhasil ditambahkan
+  /products/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Mendapatkan detail produk
+      responses:
+        '200':
+          description: Data ditemukan
+        '404':
+          description: Item dengan ID xx tidak Ditemukan
+    put:
+      summary: Mengubah seluruh data produk
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: { type: string }
+                price: { type: number }
+                stock: { type: integer }
+      responses:
+        '200':
+          description: Berhasil diubah
+    patch:
+      summary: Mengubah sebagian data produk (misal stock saja)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                stock: { type: integer }
+      responses:
+        '200':
+          description: Berhasil diubah sebagian
+    delete:
+      summary: Menghapus produk
+      responses:
+        '200':
+          description: Berhasil dihapus
